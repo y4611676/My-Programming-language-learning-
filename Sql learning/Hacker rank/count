@@ -1,0 +1,46 @@
+Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's 0 key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+
+Write a query calculating the amount of error, and round it up to the next integer.
+
+code：SELECT CEIL(AVG(Salary)-AVG(REPLACE(Salary,'0',''))) FROM EMPLOYEES;
+
+CEIL(數值);CEIL()、CEILING() 函數是用來無條件進入數值。
+MySQL 函數名稱是用 CEIL()；Oracle 一樣用 CEIL()；SQL Server 則是用 CEILING()。
+
+ex,
+SELECT CEIL(-2.1), CEIL(2.1);
+
+replace the str3 with str2 in str1
+Replace (str1, str2, str3)
+
+Query a count of the number of cities in CITY having a Population larger than 100000.
+
+CODE：
+SELECT COUNT(NAME)
+FROM CITY 
+WHERE POPULATION > 100000;
+
+ Output
+6
+
+Query the total population of all cities in CITY where District is California.
+
+CODE
+SELECT SUM(POPULATION)
+FROM CITY
+WHERE DISTRICT = 'California';
+
+ Output
+339002
+
+Query the average population of all cities in CITY where District is California.
+
+CODE：
+SELECT AVG(POPULATION)
+FROM CITY
+WHERE DISTRICT = 'California';
+
+Output
+113000.667
+
+

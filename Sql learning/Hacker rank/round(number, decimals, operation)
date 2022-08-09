@@ -1,0 +1,111 @@
+Query the following two values from the STATION table:
+
+The sum of all values in LAT_N rounded to a scale of 2 decimal places.
+The sum of all values in LONG_W rounded to a scale of 2 decimal places.
+
+select round(sum(lat_n),2), round(sum(long_w),2)
+from station;
+
+Output (stdout)
+42850.04 47381.48
+
+round(number, decimals(小樹點後幾位要保留), operation)
+
+number	Required. The number to be rounded
+decimals	Required. The number of decimal places to round number to 
+operation	Optional. If 0, it rounds the result to the number of decimal. If another value than 0, it truncates the result to the number of decimals. Default value is 0
+
+
+Query the sum of Northern Latitudes (LAT_N) from STATION having values greater than 38.7880 and less than 137.2345 . Truncate your answer to 4  decimal places.
+
+code：
+SELECT ROUND(SUM(LAT_N),4) FROM STATION WHERE LAT_N > 38.7880 AND LAT_N < 137.2345;
+
+Output (stdout)
+36354.8135
+
+
+Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than . Truncate your answer to  decimal places.
+
+CODE：
+SELECT ROUND(MAX(LAT_N), 4)
+FROM STATION
+WHERE LAT_N < 137.2345;
+
+Output
+137.0193
+
+Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345. Round your answer to 4 decimal places.
+
+CODE：
+Select ROUND(LONG_W,4) from STATION WHERE LAT_N = (SELECT MAX(LAT_N) FROM STATION WHERE LAT_N<137.2345);
+
+Output (stdout)
+117.2465
+
+Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7780. Round your answer to  decimal places.
+
+CODE：
+SELECT ROUND(MIN(LAT_N), 4)
+FROM STATION
+WHERE LAT_N > 38.7780;
+
+Output
+38.8526
+
+
+Query the Western Longitude (LONG_W)where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7780 . Round your answer to 4 decimal places.
+
+CODE：
+SELECT ROUND(LONG_W, 4)
+FROM STATION
+WHERE LAT_N = (SELECT MIN(LAT_N) FROM STATION WHERE LAT_N > 38.7780);
+
+Output
+70.1378
+
+Consider p1(a,b) and p2(c,d) to be two points on a 2D plane.
+ happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
+ happens to equal the minimum value in Western Longitude (LONG_W in STATION).
+ happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
+ happens to equal the maximum value in Western Longitude (LONG_W in STATION).
+Query the Manhattan Distance between points p1 and p2 and round it to a scale of  decimal places.
+
+CODE
+SELECT ROUND(MAX(lat_n)-MIN(lat_n) + MAX(long_w)-MIN(long_w) ,4)
+FROM STATION;
+
+ Output
+259.6859
+
+Consider p1(a,b) and p2(c,d) to be two points on a 2D plane where (a,b) are the respective minimum and maximum values of Northern Latitude (LAT_N) and (c,d) are the respective minimum and maximum values of Western Longitude (LONG_W) in STATION.
+Query the Euclidean Distance between points p1 and p2 and format your answer to display 4 decimal digits.
+
+CODE
+SELECT 
+   ROUND(SQRT(
+      POWER(MAX(LAT_N)-MIN(LAT_N), 2)+
+      POWER(MAX(LONG_W)-MIN(LONG_W), 2)
+      ), 4)
+FROM STATION;
+
+ Output (stdout)
+184.1616
+
+
+A median is defined as a number separating the higher half of a data set from the lower half. 
+Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to  decimal places.
+
+CODE：
+Select round(S.LAT_N,4) MEDIAN 
+from station S 
+where 
+  (select count(Lat_N) 
+   from station 
+   where Lat_N < S.LAT_N ) 
+  = (select count(Lat_N) 
+     from station 
+     where Lat_N > S.LAT_N);
+     
+Output (stdout)
+83.8913

@@ -1,0 +1,40 @@
+/*
+Table: Employees
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| employee_id | int     |
+| name        | varchar |
++-------------+---------+
+employee_id is the primary key for this table.
+Each row of this table indicates the name of the employee whose ID is employee_id.
+ 
+
+Table: Salaries
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| employee_id | int     |
+| salary      | int     |
++-------------+---------+
+employee_id is the primary key for this table.
+Each row of this table indicates the salary of the employee whose ID is employee_id.
+ 
+
+Write an SQL query to report the IDs of all the employees with missing information. The information of an employee is missing if:
+
+The employee's name is missing, or
+The employee's salary is missing.
+Return the result table ordered by employee_id in ascending order.
+*/
+
+--Code
+(select e.employee_id from employees e join salaries s on e.employee_id = s.employee_id where s.salary is null)
+union
+(select s.employee_id from employees e join salaries s on e.employee_id = s.employee_id where e.name is null)
+order by employee_id;
+
+--Output
+{"headers": ["employee_id"], "values": [[1], [2]]}

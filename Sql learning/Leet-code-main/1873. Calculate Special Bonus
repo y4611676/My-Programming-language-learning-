@@ -26,5 +26,13 @@ order by employee_id;
 select employee_id,if(mod(employee_id,2)=1 and name not like "M%",salary,0) as bonus from employees
 order by employee_id;
 
+--or
+Select employee_id, (Case When employee_id % 2 = 0 Then salary = 0
+                         When name like 'M%' Then salary =0
+                         else salary 
+                         end) as bonus
+From Employees
+Order by employee_id;
+
 --Output
 {"headers": ["employee_id", "bonus"], "values": [[2, 0], [3, 0], [7, 7400], [8, 0], [9, 7700]]}
